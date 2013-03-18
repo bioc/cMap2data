@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\usepackage{graphicx, verbatim}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[numbers]{natbib}
+\setlength{\textwidth}{6.5in} 
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0in} 
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{-1.5cm}
+%\VignetteIndexEntry{cMap2data}
+\begin{document}
+
+\begin{center}
+\Large Connectivity Map 2 data package
+\end{center}
+\SweaveOpts{keep.source=TRUE}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{SOutput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
+\fvset{listparameters={\setlength{\topsep}{0pt}}}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
+
+
+
+
+
+
+\section{Introduction}
+
+The Connectivity Map (version 2) data package provides a reference drug data set for the DrugVsDisease package which is a pipeline for the comparison of drug and disease gene expression profiles where negatively correlated (enriched) profiles can be used to generate hypotheses of drug-repurposing and positively correlated (enriched) profiles may be used to infer side-effects of drugs. 
+
+
+
+\subsection{Drug Signatures}
+
+The Connectivity Map version 2.0 rank matrix was used to generate the reference set of drug profiles for DvD. All profiles for a given compound treatment were merged as described in \citep{Iorio10}, giving 1309 ranked expression profiles based on the HGU-133A platform. These profiles were then converted to gene symbols by taking the average rank where multiple probes map to the same gene and removing probes which mapped to more than one gene. These mappings were obtained from BiomaRt. Using these signatures, pairwise similarity scores were calculated using the KS running sum statistic based on the top 100 and bottom 100 genes for each profile. Affinity propagation clustering (provided by the R package apcluster) was used to create the network of drug connections. The 1309 compounds were clustered into 103 clusters, the assignments of each compound are stored in the object drugClusters. cMap2data does not contain any R code and all data objects can be accessed using the data command in R.
+
+<<>>=
+data(drugClusters,package="cMap2data")
+@
+
+
+\subsection{Cytoscape Information}
+An associated cytoscape plug-in is available for DvD which also uses the cMap2data package. The cMap2data package contains cytodrug and cytodisease data objects which have the edges in the network along with the distance and Running sum Peak Statistic (RPS). The latter two are used as edge attributes by Cytoscape. The Running sum Peak Statistic takes values 1 or -1 where 1 indicates a positive correlation and -1 a negative correlation. The distance measure gives the strength of this correlation. This data frame is used by the DrugVsDisease package to generate cytoscape sif and edge attribute files. For links out to external web browsers DrugBank, cMap2data also contains search compatible terms for all nodes in the reference data set. (Note that some compounds in the connectivity map are known not to be in DrugBank).
+
+<<>>=
+data(cytodrug,package="cMap2data")
+#to get the compound (node) names and corresponding search terms
+data(druglabels,package="cMap2data")
+@
+
+
+
+\begin{thebibliography}{}
+\bibitem[Hu {\it et~al}., 2009]{Hu09} Hu G, Agarwal P (2009) Human Disease-Drug Network Based on Genomic Expression Profiles, {\it PLoS ONE}, {\bf 4(8)}: e6536.
+
+\bibitem[Shigemizu {\it et~al}., 2012]{Shi12} Shigemizu D, Hu Z, Hung J-H, Huang C-L, Wang Y, et al. (2012) Using Functional Signatures to Identify Repositioned Drugs for Breast, Myelogenous Leukemia and Prostate Cancer. {\it PLoS Comput Biol} {\bf 8(2)}: e1002347.
+
+\bibitem[Sirota \textit{et~al}., 2011]{Sirota11}
+Sirota M \textit{et~al}. (2011) Discovery and Preclinical Validation of Drug Indications Using Compendia of Public Gene Expression Data. \textit{Sci Trans Med}, \textbf{3:96ra77}.
+
+\bibitem[Subramanian \textit{et~al}., 2005]{Sub05}
+Subramanian A \textit{et~al}. (2005) Gene set enrichment analysis: A knowledge-based approach for interpreting genome-wide expression profiles. \textit{PNAS}, \textbf{102}(43), 15545-15550.
+
+\bibitem[Lamb \textit{et~al}., 2006]{Lamb06}
+Lamb J \textit{et~al}. (2006) The Connectivity Map: Using Gene-Expression Signatures to Connect Small Molecules, Genes, and Disease. \textit{Science}, \textbf{313}(5795), 1929-1935.
+
+\bibitem[Gentleman \textit{et~al}., 2004]{Gentleman04}
+Gentleman R \textit{et~al}. (2004) Bioconductor: open software development for computational biology and bioinformatics. \textit{Genome Biology}, \textbf{5}(10), R80.
+
+\bibitem[Parkinson \textit{et~al}., 2010]{Parkinson10}
+Parkinson et al. (2010) ArrayExpress update—an archive of microarray and high-throughput sequencing-based functional genomics experiments. \textit{Nucl. Acids Res.},doi: 10.1093/nar/gkq1040.
+
+
+\bibitem[R 2008]{RDev08}
+R Development Core Team (2008). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. ISBN 3-900051-07-0
+
+\bibitem[Cline \textit{et~al}., 2007]{Cline07} 
+Cline \textit{et al}. (2007) Integration of biological networks and gene expression data using Cytoscape. \textit{Nature Protocols}, \textbf{2}, 2366-2382.
+
+
+
+
+\end{thebibliography}
+
+\end{document}
