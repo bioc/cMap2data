@@ -7,6 +7,7 @@ Author: C. Pacini
 Maintainer: J. Saez-Rodriguez <saezrodriguez@ebi.ac.uk>
 Description: Data package which provides default drug profiles for the DrugVsDisease package as well as associated gene lists and data clusters used by the DrugVsDisease package.
 License: GPL-3
+biocViews:  GeneExpression, Homo_sapiens, Microarray
 LazyLoad: yes
 LazyData: yes
 Depends: R (>= 2.10)
