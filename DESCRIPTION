@@ -1,13 +1,13 @@
 Package: cMap2data
 Type: Package
 Title: Connectivity Map (version 2) Data
-Version: 1.3.0
+Version: 1.3.1
 Date: 2012-07-24
 Author: C. Pacini
 Maintainer: J. Saez-Rodriguez <saezrodriguez@ebi.ac.uk>
 Description: Data package which provides default drug profiles for the DrugVsDisease package as well as associated gene lists and data clusters used by the DrugVsDisease package.
 License: GPL-3
-biocViews:  GeneExpression, Homo_sapiens, Microarray
+biocViews: Homo_sapiens_Data, MicroarrayData, GEO
 LazyLoad: yes
 LazyData: yes
 Depends: R (>= 2.10)
